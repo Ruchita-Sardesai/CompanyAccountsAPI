@@ -2855,8 +2855,7 @@ if (!comparisonResult) {
 boolean comparisonResult = false;
 
 int i; 
- String AccountAdmin1= &quot;${__property(AdminID1)}&quot;;
-log.info(&quot;Size:&quot; + vars.getObject (&quot;ClientAccount&quot;). size ());
+
 for (int i; i &lt;vars.getObject (&quot;ClientAccount&quot;). size (); i ++)
 {
     if  ((vars.getObject (&quot;ClientAccount&quot;). size ())==1) 
