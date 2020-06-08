@@ -1102,6 +1102,13 @@
             <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
           </JSONPostProcessor>
           <hashTree/>
+          <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="JSON Extractor for ApplicationID2" enabled="true">
+            <stringProp name="JSONPostProcessor.referenceNames">ApplicationID2</stringProp>
+            <stringProp name="JSONPostProcessor.jsonPathExprs">$..id</stringProp>
+            <stringProp name="JSONPostProcessor.match_numbers">3</stringProp>
+            <boolProp name="JSONPostProcessor.compute_concat">true</boolProp>
+          </JSONPostProcessor>
+          <hashTree/>
           <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
             <collectionProp name="HeaderManager.headers">
               <elementProp name="Accept-Language" elementType="Header">
@@ -1129,6 +1136,13 @@
           <hashTree/>
           <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="Beanshell for setproperty for ApplicationID" enabled="true">
             <stringProp name="BeanShellAssertion.query">${__setProperty(ApplicationID, ${ApplicationID})};</stringProp>
+            <stringProp name="BeanShellAssertion.filename"></stringProp>
+            <stringProp name="BeanShellAssertion.parameters"></stringProp>
+            <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
+          </BeanShellAssertion>
+          <hashTree/>
+          <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="Beanshell for setproperty for ApplicationID" enabled="true">
+            <stringProp name="BeanShellAssertion.query">${__setProperty(ApplicationID1, ${ApplicationID1})};</stringProp>
             <stringProp name="BeanShellAssertion.filename"></stringProp>
             <stringProp name="BeanShellAssertion.parameters"></stringProp>
             <boolProp name="BeanShellAssertion.resetInterpreter">false</boolProp>
@@ -1485,7 +1499,8 @@
                 <stringProp name="Argument.value">{&#xd;
   &quot;applicationIds&quot;: [&#xd;
   ${ApplicationID},&#xd;
-  ${ApplicationID1}&#xd;
+  ${ApplicationID1},&#xd;
+  ${ApplicationID2}&#xd;
     &#xd;
   ]&#xd;
 }</stringProp>
@@ -1553,8 +1568,8 @@
                 <stringProp name="Argument.value">{&#xd;
   &quot;applicationIds&quot;: [&#xd;
   ${ApplicationID},&#xd;
-  ${ApplicationID1}&#xd;
-    &#xd;
+  ${ApplicationID1},&#xd;
+   ${ApplicationID2} &#xd;
   ]&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
@@ -4487,7 +4502,7 @@ log.info(json)</stringProp>
           <hashTree/>
         </hashTree>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Remove  APIs" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Remove  APIs" enabled="false">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -4515,7 +4530,7 @@ log.info(json)</stringProp>
           <stringProp name="HTTPSampler.port">${Portno}</stringProp>
           <stringProp name="HTTPSampler.protocol">${Http}</stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-          <stringProp name="HTTPSampler.path">${entities}/${__property(EntityID)}/${applications}/${__property(ApplicationID)}</stringProp>
+          <stringProp name="HTTPSampler.path">${entities}/${__property(EntityID)}/${applications}/${__property(ApplicationID1)}</stringProp>
           <stringProp name="HTTPSampler.method">DELETE</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -4972,7 +4987,7 @@ ON GP.GroupId= G.Id
 LEFT JOIN GroupUsers as GU
 ON GU.GroupId=G.Id
 
-where GP.GroupId=&apos;${__property(GroupID)}&apos;</stringProp>
+where G.Id=&apos;${__property(GroupID)}&apos;</stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
           <stringProp name="queryTimeout"></stringProp>
@@ -5109,7 +5124,7 @@ JOIN Groups as G
 ON G.EntityId= ER.EntityId
 JOIN GroupPermissions as GP
 ON GP.GroupId=G.Id 
-where ER.ResourceId=&apos;${__property(ApplicationID)}&apos; and GP.GroupId=&apos;${__property(GroupID1)}&apos;
+where ER.ResourceId=&apos;${__property(ApplicationID1)}&apos; and GP.GroupId=&apos;${__property(GroupID)}&apos;
 
 </stringProp>
           <stringProp name="queryArguments"></stringProp>
@@ -5384,7 +5399,7 @@ CompanyAccountUsers as CAU
 JOIN Groupusers as GU
 ON GU.UserId=CAU.UserId
 
-Where CAU.UserId=&apos;${__property(GroupID)}&apos;
+Where CAU.UserId=&apos;${__property(UserId)}&apos;
 </stringProp>
           <stringProp name="queryArguments"></stringProp>
           <stringProp name="queryArgumentsTypes"></stringProp>
